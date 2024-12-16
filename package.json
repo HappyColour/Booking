@@ -7,11 +7,25 @@
     "dev": "nuxt dev",
     "generate": "nuxt generate",
     "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "postinstall": "nuxt prepare",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix"
   },
   "dependencies": {
+    "@element-plus/icons-vue": ">=0.2.6",
+    "@element-plus/nuxt": "1.1.0",
+    "@nuxt/eslint": "0.7.3",
+    "@nuxtjs/i18n": "9.1.1",
+    "@nuxtjs/tailwindcss": "6.12.2",
+    "@vite-pwa/nuxt": "0.10.6",
+    "element-plus": ">=2",
+    "eslint": "^8.57.0 || ^9.0.0",
     "nuxt": "^3.14.1592",
+    "nuxt-gtag": "3.0.2",
     "vue": "latest",
     "vue-router": "latest"
+  },
+  "devDependencies": {
+    "typescript": "^5.7.2"
   }
 }
