@@ -1,3 +1,3 @@
 <template>
-    {{ $t('welcome') }}
+  Header
 </template>
