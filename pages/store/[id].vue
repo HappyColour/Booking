@@ -4,6 +4,7 @@
       <el-carousel
         class="mlr-20"
         arrow="never"
+        height="20rem"
         :interval="5000"
         :pause-on-hover="false"
       >
@@ -11,13 +12,12 @@
           v-for="item in list"
           :key="item"
         >
-          <h3>
-            <el-image
-              :key="item"
-              :src="item"
-              fit="cover"
-            />
-          </h3>
+          <el-image
+            :key="item"
+            class="h-full w-full"
+            :src="item"
+            fit="cover"
+          />
         </el-carousel-item>
       </el-carousel>
     </div>
@@ -33,20 +33,29 @@
         disabled
       />
       <span class="hidden md:block">•</span>
-      <p>Closed opens soon at 11:00</p>
+      <p class="text-base text-gray-500">
+        Closed opens soon at 11:00
+      </p>
       <span class="hidden md:block">•</span>
-      <p>32 Farmhill Park, Douglas</p>
+      <p class="text-base text-gray-500">
+        32 Farmhill Park, Douglas
+      </p>
     </div>
-    <div class="grid-areas">
-      <div class="grid-1">
-        <img :src="list[0]">
+    <div class="hidden md:block">
+      <div class="grid-layout">
+        <div class="large-image rounded-xl">
+          <img :src="list[0]">
+        </div>
+        <div class="small-image top rounded-xl">
+          <img :src="list[1]">
+        </div>
+        <div class="small-image bottom rounded-xl">
+          <img :src="list[2]">
+        </div>
       </div>
-      <div class="grid-2">
-        <img :src="list[1]">
-      </div>
-      <div class="grid-3">
-        <img :src="list[2]">
-      </div>
+    </div>
+    <div>
+      <h2>Services</h2>
     </div>
   </div>
 </template>
@@ -64,26 +73,50 @@ definePageMeta({
 console.log('11', route.params.id)
 
 const rateValue = ref(4.6)
-const list = ['https://images.fresha.com/locations/location-profile-images/1239812/1657111/e5b87bd5-eeba-4308-ade5-9c38aba7d8d8-AGWNails-IM-Douglas-Douglas-Fresha.jpg?class=venue-gallery-mobile&dpr=2', 'https://images.fresha.com/locations/location-profile-images/1239812/1657112/442ac3d2-3de3-4a10-bd51-6903182a5cb4-AGWNails-IM-Douglas-Douglas-Fresha.jpg?class=venue-gallery-mobile&dpr=2', 'https://images.fresha.com/locations/location-profile-images/1239812/1657113/5033b71b-efd0-4a20-8c85-2ebce0d24972-AGWNails-IM-Douglas-Douglas-Fresha.jpg?class=venue-gallery-mobile&dpr=2']
+const list = ['https://images.fresha.com/locations/location-profile-images/32389/2039628/8f402467-10db-4d1f-bf6b-b599ea18dbb1-TsimShaTsuiHandsomeFactoryBarberShop-HK-Kowloon-Kowloon-TsimShaTsui-Fresha.jpg?class=venue-gallery-large&dpr=3', 'https://images.fresha.com/locations/location-profile-images/32389/2039629/a33077fa-7bae-452f-9bd2-52bff9cf59dd-TsimShaTsuiHandsomeFactoryBarberShop-HK-Kowloon-Kowloon-TsimShaTsui-Fresha.jpg?class=venue-gallery-small&dpr=3', 'https://images.fresha.com/locations/location-profile-images/32389/2039630/d657a6bf-2008-4116-9671-4100463698fc-TsimShaTsuiHandsomeFactoryBarberShop-HK-Kowloon-Kowloon-TsimShaTsui-Fresha.jpg?class=venue-gallery-small&dpr=3']
 </script>
 
 <style>
 .mlr-20 {
   margin: 0 -20px;
 }
-.grid-areas {
+.grid-layout {
   display: grid;
-  grid-template-areas: "a a b" "a a c";
-  grid-template-columns: 1fr 1fr 1fr;
-  grid-gap: 24px;
+  grid-template-areas:
+    "large top"
+    "large bottom";
+  grid-template-columns: 2fr 1fr; /* 左侧大图宽度是右侧图片的两倍 */
+  grid-template-rows: 1fr 1fr; /* 右侧两行等高 */
+  gap: 24px; /* 图片之间的间隙 */
+  box-sizing: border-box;
+  height: 76vh;
 }
-.grid-1 {
-  grid-area: a;
+.large-image {
+  grid-area: large;
+  overflow: hidden;
 }
-.grid-2 {
-  grid-area: b;
+
+.large-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
-.grid-3 {
-  grid-area: c;
+
+/* 右上小图片 */
+.top {
+  grid-area: top;
+  overflow: hidden;
+}
+
+/* 右下小图片 */
+.bottom {
+  grid-area: bottom;
+  overflow: hidden;
+}
+
+.small-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* 保持图片比例并填满空间 */
 }
 </style>
