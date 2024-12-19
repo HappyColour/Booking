@@ -21,7 +21,7 @@
         </el-carousel-item>
       </el-carousel>
     </div>
-    <h1 class="text-xl font-bold md:text-5xl">
+    <h1 class="text-2xl font-bold md:text-6xl">
       Maison de Beauté
     </h1>
     <div class="flex-col items-start flex gap-2 md:flex-row md:items-center">
@@ -40,6 +40,12 @@
       <p class="text-base text-gray-500">
         32 Farmhill Park, Douglas
       </p>
+      <a
+        href="https://www.google.com/maps?daddr=32+Farmhill+Park,+Douglas,+IM2+2ED"
+        target="_blank"
+        rel="noopener noreferrer"
+        class="text-base text-blue-600 hover:opacity-85"
+      >{{ $t('Get directions') }}</a>
     </div>
     <div class="hidden md:block">
       <div class="grid-layout">
@@ -55,8 +61,21 @@
       </div>
     </div>
     <div>
-      <h2>Services</h2>
+      <h2 class="mt-10 text-xl font-bold md:text-4xl md:mt-16">
+        {{ $t('Services') }}
+      </h2>
     </div>
+    <el-date-picker
+      v-model="selectedDateTime"
+      :editable="false"
+      type="date"
+      placeholder="Select date"
+      :disabled-date="disabledDate"
+      format="YYYY/MM/DD"
+      value-format="x"
+      @calendar-change="handleDateChange"
+    />
+    {{ selectedDateTime }}
   </div>
 </template>
 
@@ -74,6 +93,21 @@ console.log('11', route.params.id)
 
 const rateValue = ref(4.6)
 const list = ['https://images.fresha.com/locations/location-profile-images/32389/2039628/8f402467-10db-4d1f-bf6b-b599ea18dbb1-TsimShaTsuiHandsomeFactoryBarberShop-HK-Kowloon-Kowloon-TsimShaTsui-Fresha.jpg?class=venue-gallery-large&dpr=3', 'https://images.fresha.com/locations/location-profile-images/32389/2039629/a33077fa-7bae-452f-9bd2-52bff9cf59dd-TsimShaTsuiHandsomeFactoryBarberShop-HK-Kowloon-Kowloon-TsimShaTsui-Fresha.jpg?class=venue-gallery-small&dpr=3', 'https://images.fresha.com/locations/location-profile-images/32389/2039630/d657a6bf-2008-4116-9671-4100463698fc-TsimShaTsuiHandsomeFactoryBarberShop-HK-Kowloon-Kowloon-TsimShaTsui-Fresha.jpg?class=venue-gallery-small&dpr=3']
+const selectedDateTime = ref<number | null>(null)
+
+const disabledDate = (time: Date) => {
+  const today = new Date()
+  const day = time.getDay()
+  return time < today || day === 0 || day === 6 // Disable past dates and Sundays
+}
+
+const handleDateChange = (date: number) => {
+  selectedDateTime.value = date
+}
+
+onMounted(() => {
+  selectedDateTime.value = Date.now()
+})
 </script>
 
 <style>
